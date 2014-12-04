@@ -1,0 +1,6 @@
+__author__ = 'jgrgurica'
+from django.views.generic import TemplateView
+
+
+class HomeView(TemplateView):
+    template_name = "index.html"
