@@ -30,9 +30,11 @@ class TransactionForm(ModelForm):
         """
         Raises ValidationError if amount is negative number.
         """
-        if self.cleaned_data['amount'] < 0:
+        amount = self.cleaned_data['amount']
+        if amount < 0:
             raise ValidationError('Amount must be positive number, if you are withdrawing money '
                                   'please select appropriate transaction type.')
+        return amount
 
     class Meta(object):
         model = Transaction
