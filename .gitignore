@@ -2,5 +2,5 @@
 .idea/*
 *.DS_Store
 *.py[cod]
-*migrations/*
+migrations/
 
