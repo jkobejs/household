@@ -3,4 +3,4 @@
 *.DS_Store
 *.py[cod]
 migrations/
-
+userfiles/
