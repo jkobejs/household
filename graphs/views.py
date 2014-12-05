@@ -15,7 +15,7 @@ class GraphsIndexView(LoginRequiredMixin, TemplateView):
     template_name = 'graphs/index.html'
 
     def get_context_data(self, **kwargs):
-        graph_data, amount = Transaction.objects.daily_amounts(self.request.user.household)
+        graph_data, amount = Transaction.daily_amounts(self.request.user.household)
         context = super(GraphsIndexView, self).get_context_data(**kwargs)
         context['graph_data'] = graph_data
         context['amount'] = amount
