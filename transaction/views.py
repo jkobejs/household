@@ -36,7 +36,6 @@ class TransactionIndex(LoginRequiredMixin, CreateView):
         transactions_list = list(Transaction.get_transactions_from_household(self.request.user.household))
         context = super(TransactionIndex, self).get_context_data(**kwargs)
         context['household_members'] = HouseholdUser.get_users_from_household(self.request.user.household)
-        print context['household_members']
         context['transactions'] = get_paginated_page(transactions_list, self.request.GET.get('page'))
         context['amount'] = Transaction.calculate_amount(transactions_list)
         context['household'] = self.request.user.household

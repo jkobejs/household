@@ -13,6 +13,13 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="/">Household app</a>
+            {% if user.is_authenticated %}
+            <ul class="nav navbar-nav">
+                <li class="{% block transactions %}{% endblock transactions %}"><a href="{% url 'transactions_index' %}">Transactions</a></li>
+                <li class="{% block members %}{% endblock members %}" ><a href="{% url 'household_manager_index' %}">Members</a></li>
+                <li class="{% block graphs %}{% endblock graphs %}"><a href="{% url 'graphs_index' %}">Graphs</a></li>
+            </ul>
+            {% endif %}
         </div>
         <div class="navbar-collapse collapse">
             {% block login_form %}
