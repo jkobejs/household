@@ -9,62 +9,79 @@
 
 </head>
 <body style="padding-top: 50px; padding-bottom: 20px;">
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">Household app</a>
-            {% if user.is_authenticated %}
-            <ul class="nav navbar-nav">
-                <li class="{% block transactions %}{% endblock transactions %}"><a href="{% url 'transactions_index' %}">Transactions</a></li>
-                <li class="{% block members %}{% endblock members %}" ><a href="{% url 'household_manager_index' %}">Members</a></li>
-                <li class="{% block graphs %}{% endblock graphs %}"><a href="{% url 'graphs_index' %}">Graphs</a></li>
-            </ul>
-            {% endif %}
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Household app</a>
         </div>
-        <div class="navbar-collapse collapse">
-            {% block login_form %}
+        <center>
+            <div class="navbar-collapse collapse" id="navbar-main">
                 {% if user.is_authenticated %}
+                    <ul class="nav navbar-nav">
+                        <li class="{% block transactions %}{% endblock transactions %}"><a
+                                href="{% url 'transactions_index' %}">Transactions</a></li>
+                        <li class="{% block members %}{% endblock members %}"><a href="{% url 'household_manager_index' %}">Members</a>
+                        </li>
+                        <li class="{% block graphs %}{% endblock graphs %}"><a href="{% url 'graphs_index' %}">Graphs</a>
+                        </li>
+                    </ul>
                     <span class="navbar-text navbar-right" style="color: #ffffff">
                         You are logged in as {{ user.username }}. <a href="{% url 'logout' %}">Logout </a>
                     </span>
                 {% else %}
-                    <form class="navbar-form navbar-right" role="form" action="{% url 'login' %}" method="post">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <input name="username" type="text" placeholder="Username" class="form-control">
+                    <form class="navbar-form navbar-right" role="form" action="." method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group"
+                          {% if field.errors %}
+                              data-toggle="popover" data-trigger="focus"
+                              title="Login error" data-placement="bottom"
+                              data-content="{{ field.errors }}"
+                          {% endif %}>
+                            {{ field }}
                         </div>
-                        <div class="form-group">
-                            <input name="password" type="password" placeholder="Password" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Log in</button>
-                    </form>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">Sign in</button>
                 {% endif %}
-            {% endblock login_form %}
-        </div><!--/.navbar-collapse -->
-      </div>
+                </form>
+            </div>
+        </center>
     </div>
+</div>
+<!-- Main jumbotron for a primary marketing message or call to action -->
 
-        <!-- Main jumbotron for a primary marketing message or call to action -->
+{% block description %}
+{% endblock description %}
 
-    {% block description %}
-    {% endblock description %}
-
-    <div class="container">
-    {% block content %}{% endblock content%}
+<div class="container">
+    {% block content %}{% endblock content %}
     <hr>
 
     <footer>
         <p>© Company 2014</p>
     </footer>
 
-    </div>
+</div>
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ STATIC_URL }}js/lib/jquery.min.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{{ STATIC_URL }}js/lib/jquery.min.js"></script>
+<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        {% if form.is_bound and not form.is_valid %}
+            $('[data-toggle="popover"]').popover('show');
+        {% endif %}
+    })
+</script>
 </body>
 <body>
 </body>
