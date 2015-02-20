@@ -1,6 +1,0 @@
-.project
-.idea/*
-*.DS_Store
-*.py[cod]
-migrations/
-userfiles/
