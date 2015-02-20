@@ -14,13 +14,23 @@ class HouseholdUserForm(forms.ModelForm):
 
     class Meta(object):
         model = get_user_model()
-        fields = ["first_name", "last_name", "username", "email", "photo"]
+        fields = ["first_name", "last_name", "username", "email"]
+
+    def __init__(self, *args, **kwargs):
+        """
+        Adds 'form-control' class and 'placeholder' to form field.
+        """
+        super(HouseholdUserForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            if isinstance(field, forms.CharField):
+                field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['placeholder'] = field_name.title()
 
     def save(self, commit=True, **kwargs):
         """
         Saves user data, sets its password and type.
         """
-        instance = super(HouseholdUserForm, self).save(commit=False)
+        instance = super(HouseholdUserForm, self).save(commit=False, **kwargs)
         instance.set_password(self.cleaned_data["password"])
         if commit:
             instance.user_type = self.user_type

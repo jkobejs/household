@@ -8,11 +8,23 @@ from transaction.models import Transaction
 
 
 class TransactionForm(ModelForm):
+    """
+    Form for adding new transactions.
+    """
     TRANSACTION_TYPE = (
         (True, "Add money"),
         (False, "Withdraw money")
     )
     transaction_type = ChoiceField(choices=TRANSACTION_TYPE)
+
+    def __init__(self, *args, **kwargs):
+        """
+        Adds 'form-control' class and 'placeholder' to form field.
+        """
+        super(TransactionForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['placeholder'] = field_name.title()
 
     def clean(self):
         """
