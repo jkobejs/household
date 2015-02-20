@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block graphs %}active{% endblock graphs %}
+
+{% block extra_head %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    var data = {
+        labels: ['1', '5', '10', '15', '20', '25', '30'],
+        datasets: [
+            {
+                label: "Household budget status for current month",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: {{ graph_data }}
+            }
+        ]
+    };
+    var moneyCtx = document.getElementById("moneyChart").getContext("2d");
+    var waterElectricityCtx = document.getElementById("waterElectricityChart").getContext("2d");
+    new Chart(moneyCtx).Line(data);
+    new Chart(waterElectricityCtx).Line(data);
+
+});
+</script>
+{% endblock extra_head %}
+
+{% block description %}
+{% endblock description %}
+{% block content %}
+    <div class="container">
+    <br>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>{{ user.household.name | capfirst }} household money status for current month</h2>
+                <br/>
+                <canvas id="moneyChart" width="500" height="300"></canvas>
+                <p class="lead">Current amount: <span>{{ amount }} kn</span></p>
+            </div>
+            <div class="col-md-6">
+                <h2>{{ user.household.name | capfirst }} household overheads</h2>
+                <br/>
+                <canvas id="waterElectricityChart" width="500" height="300"></canvas>
+                <p class="lead">Water: <span>{{ amount }}</span></p>
+                <p class="lead">Electricity: <span>{{ amount }}</span></p>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

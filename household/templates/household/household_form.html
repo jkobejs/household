@@ -1,0 +1,32 @@
+{% extends "base_form.html" %}
+
+{% block members %}active{% endblock members %}
+
+{% block description %}
+<div class="container">
+    {% if update %}
+    <h1>Update household</h1>
+    <ul>
+        <li>To update your household instance you must first be logged as household manager.</li>
+        <li>You need to provide us name and address of your household.</li>
+    </ul>
+
+
+    {% else %}
+    <h1>Create household</h1>
+    <ul>
+        <li>To create your household instance you must first be logged as household manager.</li>
+        <li>You need to provide us name and address of your household.</li>
+    </ul>
+    {% endif %}
+
+</div>
+{% endblock description %}
+
+{% block cancel %}
+    <a href="{% url 'household_manager_index' %}" style="text-decoration: none;">
+        <button class="btn btn-default" type="button" >
+            Cancel
+        </button>
+    </a>
+{% endblock cancel %}

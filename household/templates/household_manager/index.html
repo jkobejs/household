@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block members %}active{% endblock members %}
+
+{% block description %}
+{% endblock description %}
+
+{% block content %}
+    <div class="row">
+        <h2>Household</h2>
+        {% if household %}
+            <p>You are member of <a href="{% url 'update_household' pk=household.id %}">{{ household.name }}</a> household. (Address: {{ household.address }})</p>
+        {% else %}
+         <p>You don't have household instance. You can create it <a href="{% url 'create_household' %}">here</a>.</p>
+        {% endif %}
+
+    </div>
+    <div class="row">
+        <h2>Household members</h2>
+        {% if household_members %}
+            <ul>
+                {% for member in household_members %}
+                <li><a href="{% url 'update_member' pk=member.id %}">{{ member.first_name }} {{ member.last_name }}</a></li>
+                {% endfor %}
+            </ul>
+            <p>You can create new household member <a href="{% url 'create_member' %}">here</a>.</p>
+        {% else %}
+            {% if household %}
+                <p>You don't have household members. You can create them <a href="{% url 'create_member' %}">here</a>.</p>
+            {% else %}
+                <p>You are not member of any household so you can't create new members. Please create your household first. </p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock content %}
