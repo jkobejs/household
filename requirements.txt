@@ -2,6 +2,7 @@ Django==1.7
 Pillow==2.6.1
 astroid==1.2.1
 django-debug-toolbar==1.2.2
+gunicorn==19.0.0
 logilab-common==0.63.0
 pep8==1.5.7
 psycopg2==2.5.3
