@@ -35,6 +35,5 @@ class HouseholdUserForm(forms.ModelForm):
         if commit:
             instance.user_type = self.user_type
             instance.save()
-            self.group.user_set.add(instance)
 
         return instance
