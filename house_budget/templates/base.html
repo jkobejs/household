@@ -35,7 +35,7 @@
                         You are logged in as {{ user.username }}. <a href="{% url 'logout' %}">Logout </a>
                     </span>
                 {% else %}
-                    <form class="navbar-form navbar-right" role="form" action="." method="post">
+                    <form class="navbar-form navbar-right" role="form" action="" method="post">
                     {% csrf_token %}
                     {% for field in form %}
                         <div class="form-group"

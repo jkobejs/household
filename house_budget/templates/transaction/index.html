@@ -92,7 +92,7 @@
                     <hr>
                 {% endif %}
                 <div class="form-horizontal">
-                    <form id="household-manager-form" action="." method="post">
+                    <form id="household-manager-form" action="" method="post">
                         {% csrf_token %}
                         {% for field in form %}
                             <div class="form-group{% if field.errors %} has-error{% endif %}">
